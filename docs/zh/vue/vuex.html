@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Vuex | 前端知识点总结</title>
+    <meta name="description" content="女性在计算机编程方面也无异于男性，这项工作既不涉及视觉能力也不涉及空间能力。Women are no different from men in computer programming, which involves neither visual nor spatial abilities.">
+    <link rel="icon" href="/study/logo.png">
+  <link rel="manifest" href="/study/manifest.json">
+  <meta name="theme-color" content="#3eaf7c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" href="/study/icons/apple-touch-icon-152x152.png">
+  <link rel="mask-icon" href="/study/icons/safari-pinned-tab.svg" color="#3eaf7c">
+  <meta name="msapplication-TileImage" content="/icons/msapplication-icon-144x144.png">
+  <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/study/assets/css/styles.39a60afb.css" as="style"><link rel="preload" href="/study/assets/js/app.39a60afb.js" as="script"><link rel="preload" href="/study/assets/js/73.1e3e52aa.js" as="script"><link rel="prefetch" href="/study/assets/css/1.styles.445f32b6.css"><link rel="prefetch" href="/study/assets/css/2.styles.6e784476.css"><link rel="prefetch" href="/study/assets/css/3.styles.ca04eff8.css"><link rel="prefetch" href="/study/assets/css/4.styles.3729441d.css"><link rel="prefetch" href="/study/assets/css/5.styles.2e98df37.css"><link rel="prefetch" href="/study/assets/css/6.styles.c2dfca14.css"><link rel="prefetch" href="/study/assets/css/7.styles.c8b06cc2.css"><link rel="prefetch" href="/study/assets/js/1.445f32b6.js"><link rel="prefetch" href="/study/assets/js/10.89538654.js"><link rel="prefetch" href="/study/assets/js/11.1383de39.js"><link rel="prefetch" href="/study/assets/js/12.1d647234.js"><link rel="prefetch" href="/study/assets/js/13.b5743142.js"><link rel="prefetch" href="/study/assets/js/14.4b1a7369.js"><link rel="prefetch" href="/study/assets/js/15.4b5a7e7c.js"><link rel="prefetch" href="/study/assets/js/16.c064dda9.js"><link rel="prefetch" href="/study/assets/js/17.76dfbbf9.js"><link rel="prefetch" href="/study/assets/js/18.8a0c7a68.js"><link rel="prefetch" href="/study/assets/js/19.c3f12481.js"><link rel="prefetch" href="/study/assets/js/2.6e784476.js"><link rel="prefetch" href="/study/assets/js/20.ddccb42f.js"><link rel="prefetch" href="/study/assets/js/21.41b2fe5b.js"><link rel="prefetch" href="/study/assets/js/22.f005cd5c.js"><link rel="prefetch" href="/study/assets/js/23.bb339779.js"><link rel="prefetch" href="/study/assets/js/24.90c8e462.js"><link rel="prefetch" href="/study/assets/js/25.8e8e8fef.js"><link rel="prefetch" href="/study/assets/js/26.34b2b8ef.js"><link rel="prefetch" href="/study/assets/js/27.c0ca56c1.js"><link rel="prefetch" href="/study/assets/js/28.e160435c.js"><link rel="prefetch" href="/study/assets/js/29.4c996500.js"><link rel="prefetch" href="/study/assets/js/3.ca04eff8.js"><link rel="prefetch" href="/study/assets/js/30.75ceeea8.js"><link rel="prefetch" href="/study/assets/js/31.dd99ad05.js"><link rel="prefetch" href="/study/assets/js/32.a5741b41.js"><link rel="prefetch" href="/study/assets/js/33.aff720ca.js"><link rel="prefetch" href="/study/assets/js/34.6d02d7be.js"><link rel="prefetch" href="/study/assets/js/35.0c637cba.js"><link rel="prefetch" href="/study/assets/js/36.80f30871.js"><link rel="prefetch" href="/study/assets/js/37.f1c63536.js"><link rel="prefetch" href="/study/assets/js/38.2dae3037.js"><link rel="prefetch" href="/study/assets/js/39.a821b10d.js"><link rel="prefetch" href="/study/assets/js/4.3729441d.js"><link rel="prefetch" href="/study/assets/js/40.e91d5a40.js"><link rel="prefetch" href="/study/assets/js/41.6060760a.js"><link rel="prefetch" href="/study/assets/js/42.97ff41b1.js"><link rel="prefetch" href="/study/assets/js/43.d4927dd3.js"><link rel="prefetch" href="/study/assets/js/44.dfbb5d12.js"><link rel="prefetch" href="/study/assets/js/45.52fc7360.js"><link rel="prefetch" href="/study/assets/js/46.2a22c067.js"><link rel="prefetch" href="/study/assets/js/47.7a8d3b93.js"><link rel="prefetch" href="/study/assets/js/48.997d2378.js"><link rel="prefetch" href="/study/assets/js/49.9b4c4e18.js"><link rel="prefetch" href="/study/assets/js/5.2e98df37.js"><link rel="prefetch" href="/study/assets/js/50.8f945fa9.js"><link rel="prefetch" href="/study/assets/js/51.4d352254.js"><link rel="prefetch" href="/study/assets/js/52.fbcea6b9.js"><link rel="prefetch" href="/study/assets/js/53.6e96e4bf.js"><link rel="prefetch" href="/study/assets/js/54.69359f8b.js"><link rel="prefetch" href="/study/assets/js/55.000a32a3.js"><link rel="prefetch" href="/study/assets/js/56.d2a8e3d4.js"><link rel="prefetch" href="/study/assets/js/57.784d06f3.js"><link rel="prefetch" href="/study/assets/js/58.34b06976.js"><link rel="prefetch" href="/study/assets/js/59.374ee608.js"><link rel="prefetch" href="/study/assets/js/6.c2dfca14.js"><link rel="prefetch" href="/study/assets/js/60.94167d2a.js"><link rel="prefetch" href="/study/assets/js/61.b9341d5f.js"><link rel="prefetch" href="/study/assets/js/62.615d3ad9.js"><link rel="prefetch" href="/study/assets/js/63.159d179a.js"><link rel="prefetch" href="/study/assets/js/64.4097a097.js"><link rel="prefetch" href="/study/assets/js/65.90808b36.js"><link rel="prefetch" href="/study/assets/js/66.d1454c27.js"><link rel="prefetch" href="/study/assets/js/67.4a299666.js"><link rel="prefetch" href="/study/assets/js/68.9c21f2e1.js"><link rel="prefetch" href="/study/assets/js/69.56c90670.js"><link rel="prefetch" href="/study/assets/js/7.c8b06cc2.js"><link rel="prefetch" href="/study/assets/js/70.29beac11.js"><link rel="prefetch" href="/study/assets/js/71.663744db.js"><link rel="prefetch" href="/study/assets/js/72.6f98250d.js"><link rel="prefetch" href="/study/assets/js/74.a189a735.js"><link rel="prefetch" href="/study/assets/js/8.62a8cd85.js"><link rel="prefetch" href="/study/assets/js/9.56af2931.js">
+    <link rel="stylesheet" href="/study/assets/css/styles.39a60afb.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/study/" class="home-link router-link-active"><!----> <span class="site-name">前端知识点总结</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/study/zh/standard/Start.html" class="nav-link">快速搭建开发环境</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">js基础</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/study/zh/javascript/jstop.html" class="nav-link">js上</a></li><li class="dropdown-item"><!----> <a href="/study/zh/algorithm/Charpter5.html" class="nav-link">js下</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">算法</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/study/zh/algorithm/Charpter4.html" class="nav-link">编程基本功</a></li><li class="dropdown-item"><!----> <a href="/study/zh/algorithm/Charpter5.html" class="nav-link">数学趣题(一)</a></li><li class="dropdown-item"><!----> <a href="/study/zh/algorithm/Charpter6.html" class="nav-link">数学趣题(二)</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">项目相关</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/study/zh/standard/Standard.html" class="nav-link">前端规范</a></li><li class="dropdown-item"><!----> <a href="/study/zh/standard/Project.html" class="nav-link">项目流程</a></li><li class="dropdown-item"><!----> <a href="/study/zh/standard/Cooperation.html" class="nav-link">前后端交互</a></li><li class="dropdown-item"><!----> <a href="/study/zh/standard/Compatibility.html" class="nav-link">移动端兼容问题</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">知名公司面试题</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/study/zh/interview/index.html" class="nav-link">面试必看</a></li><li class="dropdown-item"><!----> <a href="/study/zh/interview/ali.html" class="nav-link">阿里巴巴</a></li><li class="dropdown-item"><!----> <a href="/study/zh/interview/longhu.html" class="nav-link">龙湖地产</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">知识点笔记</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/study/zh/interface/Mind.html" class="nav-link">在线思维导图</a></li><li class="dropdown-item"><!----> <a href="/study/zh/vue/" class="nav-link router-link-active">Vue</a></li><li class="dropdown-item"><!----> <a href="/study/zh/react/" class="nav-link">React</a></li><li class="dropdown-item"><!----> <a href="/study/zh/miniapp/" class="nav-link">小程序</a></li><li class="dropdown-item"><!----> <a href="/study/zh/interface/Yuedu.html" class="nav-link">悦读管理后台</a></li><li class="dropdown-item"><!----> <a href="/study/zh/interface/BlackMarket.html" class="nav-link">BlackMarket</a></li><li class="dropdown-item"><!----> <a href="/study/zh/interface/TouTiao.html" class="nav-link">TouTiao</a></li></ul></div></div> <a href="https://github.com/jasonandjay/study" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/study/zh/standard/Start.html" class="nav-link">快速搭建开发环境</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">js基础</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/study/zh/javascript/jstop.html" class="nav-link">js上</a></li><li class="dropdown-item"><!----> <a href="/study/zh/algorithm/Charpter5.html" class="nav-link">js下</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">算法</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/study/zh/algorithm/Charpter4.html" class="nav-link">编程基本功</a></li><li class="dropdown-item"><!----> <a href="/study/zh/algorithm/Charpter5.html" class="nav-link">数学趣题(一)</a></li><li class="dropdown-item"><!----> <a href="/study/zh/algorithm/Charpter6.html" class="nav-link">数学趣题(二)</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">项目相关</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/study/zh/standard/Standard.html" class="nav-link">前端规范</a></li><li class="dropdown-item"><!----> <a href="/study/zh/standard/Project.html" class="nav-link">项目流程</a></li><li class="dropdown-item"><!----> <a href="/study/zh/standard/Cooperation.html" class="nav-link">前后端交互</a></li><li class="dropdown-item"><!----> <a href="/study/zh/standard/Compatibility.html" class="nav-link">移动端兼容问题</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">知名公司面试题</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/study/zh/interview/index.html" class="nav-link">面试必看</a></li><li class="dropdown-item"><!----> <a href="/study/zh/interview/ali.html" class="nav-link">阿里巴巴</a></li><li class="dropdown-item"><!----> <a href="/study/zh/interview/longhu.html" class="nav-link">龙湖地产</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">知识点笔记</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/study/zh/interface/Mind.html" class="nav-link">在线思维导图</a></li><li class="dropdown-item"><!----> <a href="/study/zh/vue/" class="nav-link router-link-active">Vue</a></li><li class="dropdown-item"><!----> <a href="/study/zh/react/" class="nav-link">React</a></li><li class="dropdown-item"><!----> <a href="/study/zh/miniapp/" class="nav-link">小程序</a></li><li class="dropdown-item"><!----> <a href="/study/zh/interface/Yuedu.html" class="nav-link">悦读管理后台</a></li><li class="dropdown-item"><!----> <a href="/study/zh/interface/BlackMarket.html" class="nav-link">BlackMarket</a></li><li class="dropdown-item"><!----> <a href="/study/zh/interface/TouTiao.html" class="nav-link">TouTiao</a></li></ul></div></div> <a href="https://github.com/jasonandjay/study" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav> <div class="carbon-ads"></div> <ul class="sidebar-links"><li><div class="sidebar-group first collapsable"><p class="sidebar-heading open"><span>Vue知识点</span> <span class="arrow down"></span></p> <ul class="sidebar-group-items"><li><a href="/study/zh/vue/" class="sidebar-link">VUE</a></li><li><a href="/study/zh/vue/Es6.html" class="sidebar-link">ES6</a></li><li><a href="/study/zh/vue/Es6方法扩展.html" class="sidebar-link">ES6扩展</a></li><li><a href="/study/zh/vue/Webpack.html" class="sidebar-link">Webpack</a></li><li><a href="/study/zh/vue/Babel.html" class="sidebar-link">Babel</a></li><li><a href="/study/zh/vue/Promise.html" class="sidebar-link">Promise/Aysnc</a></li><li><a href="/study/zh/vue/Vue 各种方法之间的区别.html" class="sidebar-link">Vue一些对比</a></li><li><a href="/study/zh/vue/Vue组件.html" class="sidebar-link">Vue组件</a></li><li><a href="/study/zh/vue/Vue路由.html" class="sidebar-link">Vue路由</a></li><li><a href="/study/zh/vue/Vue动画.html" class="sidebar-link">Vue动画</a></li><li><a href="/study/zh/vue/vue钩子函数.html" class="sidebar-link">Vue钩子</a></li><li><a href="/study/zh/vue/vuex.html" class="active sidebar-link">Vuex</a></li></ul></div></li></ul> </div> <div class="page"> <div class="content"><h1 id="vuex"><a href="#vuex" aria-hidden="true" class="header-anchor">#</a> Vuex</h1> <h5 id="_1、什么是vuex？"><a href="#_1、什么是vuex？" aria-hidden="true" class="header-anchor">#</a> 1、什么是vuex？</h5> <ul><li>每一个 Vuex 应用的核心就是 store（仓库）。“store”基本上就是一个容器，它包含着你的应用中大部分的状态 (state)。</li></ul> <h5 id="_2、初始化vuex"><a href="#_2、初始化vuex" aria-hidden="true" class="header-anchor">#</a> 2、初始化vuex</h5> <p>（1）下载vuex</p> <div class="language- extra-class"><pre class="language-text"><code>cnpm i vuex -D
+</code></pre></div><p>（2）建一个store文件夹（store/index.js）</p> <div class="language- extra-class"><pre class="language-text"><code>// 初始化vuex
+
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+// 引入module
+import app from './module/app';
+
+Vue.use(Vuex);
+
+// 生成一个vuex实例
+export default new Vuex.Store({
+  modules: {
+    app
+  }
+})
+</code></pre></div><p>（3）在store文件夹里建一个module文件夹用来存放数据（store/module/app.js）</p> <div class="language- extra-class"><pre class="language-text"><code>// 存放数据的地方
+const state = {
+  num: 100
+}
+
+// 派生数据（很少用）
+const getters = {
+    doubleNum(state){
+        return state.num*2
+    }
+}
+
+// 同步改变
+const mutations = {
+  changeNum(state, payload){
+    state.num = payload;
+  }
+}
+
+// 异步改变
+const actions = {
+    &lt;!--changeNumAsync(context, payload){--&gt;
+        
+    &lt;!--}--&gt;
+    changeNumAsync({commit}, payload){
+        commit('changeNum', payload)
+    }
+}
+
+export default {
+  // 命名空间
+  namespaced: true, // 配合module使用
+  state,
+  actions,
+  getters,
+  mutations
+}
+</code></pre></div><p>（4）在main.js里面引入store</p> <div class="language- extra-class"><pre class="language-text"><code>import Vue from 'vue'
+import App from './App.vue'
+
+import store from './store'
+
+new Vue({
+  el: '#app',
+  store,
+  render: h =&gt; h(App)
+})
+
+</code></pre></div><p>（5）在页面中使用</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;button @click=&quot;changeNum('+')&quot;&gt;+&lt;/button&gt;
+    &lt;span&gt;{{num}}&lt;/span&gt;
+    &lt;button @click=&quot;changeNum('-')&quot;&gt;-&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+  export default {
+    name: 'app',
+    computed: {
+      num() {
+        return this.$store.state.app.num
+      }
+    },
+    methods: {
+      changeNum(type) {
+        if (type == '+') {
+          // this.$store.commit('changeNum', this.num+1)
+          this.$store.dispatch('changeNumAsync', this.num+1)
+        } else {
+          this.$store.commit('changeNum', this.num-1)
+        }
+      }
+    },
+    mounted(){
+      console.log(this.$store)
+    }
+  }
+&lt;/script&gt;
+
+</code></pre></div></div> <div class="page-edit"><div class="edit-link"><a href="https://github.com/jasonandjay/study/edit/master/src/zh/vue/vuex.md" target="_blank" rel="noopener noreferrer">帮助我们改进内容</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">上次更新: </span> <span class="time">2019-4-23 10:30:03</span></div></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/study/zh/vue/vue钩子函数.html" class="prev">
+          Vue钩子
+        </a></span> <!----></p></div> <div class="bsa-cpc-wrapper"><div class="bsa-cpc"></div></div></div> <!----></div></div>
+    <script src="/study/assets/js/app.39a60afb.js" defer></script><script src="/study/assets/js/73.1e3e52aa.js" defer></script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?c3446600de53c605ba4f6c792e47dff9";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  </body>
+</html>
