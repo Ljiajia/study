@@ -1,0 +1,165 @@
+## 做项目到底该用Vue和还是react？
+
+2016年React巩固了它作为前端框架之王的地位，这一年中可以看到它在Web端和移动端的快速成长，同时稳稳领先于它的主要竞争对手Angular。
+
+但是2016对Vue来说也是同样令人印象深刻的一年，它发布了Vue 2.0版本并且在JavaScript社区引起了巨大反响，GitHub上多出的25000颗star就是最好的证明。
+
+React和Vue的适用范围无疑是很相似的：同样是基于组件的轻量级框架，同样专注于用户界面的视图层。同样可以用在简单的项目中，也同样可以使用全家桶扩展为复杂的应用程序。
+
+因为，很多Web开发者想知道他们应该使用哪个框架。是其中一个明显优于另一个？还是他们有各自的优点和坑？或者他们基本就是一个样？
+
+两个框架 两个拥护者
+
+在本文中，我想用一次公平，彻底的对比来回答上面的疑问。但是唯一的问题是我是一个Vue粉丝，完全不够客观。今年我在项目中重度使用Vue，在Medium上大加赞赏，甚至还发布了Udemy课程
+
+为了平衡我的偏见，我叫上了我的朋友Alexis Mangin，他是一个很牛的JavaScript开发者，同时也是一个React铁粉。他同样沉浸于React中，经常在Web端和移动端的项目中使用。
+
+有一天Alexis问我：“为什么你这么中意Vue，而不是React呢？”那时候我不太了解React， 没办法给出一个好的答案。所以我出了一个主意，找一天时间，带上笔记本电脑，互相介绍一下彼此做出选择的原因。
+
+经过大量的讨论和和互相学习后，我们找到了6个关键点。
+
+##### 如果你喜欢用模板搭建应用（或者有这个想法），请选择Vue
+Vue应用的默认选项是把markup放在HTML文件中。数据绑定表达式采用的是和Angular相似的mustache语法，而指令（特殊的HTML属性）用来向模板添加功能。
+
+下面的示例是一个简单的Vue应用。它会展示message和一个用来reverse message的按钮：
+```
+<divid="app">
+<p>{{message}}</p>
+<buttonv-on:click="reverseMessage">ReverseMessage</button>
+</div>
+newVue({
+el:'#app',
+data:{
+message:'HelloVue.js!'
+},
+methods:{
+reverseMessage:function(){
+this.message=this.message.split('').reverse().join('');
+}
+}
+});
+```
+相比之下，React应用不使用模板，它要求开发者借助JSX在JavaScript中创建DOM。下面是用React实现的同样的应用：
+```
+<divid="app"></div>
+//JS(pre-transpilation)
+classAppextendsReact.Component{
+constructor(props){
+super足球平台出租>(props);
+this.state={
+message:'HelloReact.js!'
+};
+}
+reverseMessage(){
+this.setState({
+message:this.state.message.split('').reverse().join('')
+});
+}
+render(){
+return(
+<div>
+<p>{this.state.message}</p>
+<buttononClick={()=>this.reverseMessage()}>
+ReverseMessage
+</button>
+</div>
+)
+}
+}
+ReactDOM.render(App,document.getElementById('app'));
+```
+对于来自标准Web开发方式的新开发者，模板更容易理解。但是一些资深开发者也喜欢模板，因为模板可以更好的把布局和功能分割开来，还可以使用Pug之类的模板引擎。
+
+但是使用模板的代价是不得不学习所有的HTML扩展语法，而渲染函数只需要会标准的HTML和JavaScript。而且比起模板，渲染函数更加容易调试和测试。当然你不应该因为这方面的原因错过Vue，因为在Vue2.0中提供了使用模板或者渲染函数的选项。
+
+##### 如果你喜欢简单和“能用就行”的东西，请选择Vue
+一个简单的Vue项目可以不需要转译直接运行在浏览器中，所以使用Vue可以像使用jQuery一样简单。当然这对于React来说在技术上也是可行的，但是典型的React代码是重度依赖于JSX和诸如class之类的ES6特性的。
+
+Vue的简单在程序设计的时候体现更深，让我们来比较一下两个框架是怎样处理应用数据的（也就是state）。
+
+React中的state是不可变（immutable）的，所以不能直接改变，需要使用API中的setState方法：
+```
+this.setState({
+message:this.state.message.split('').reverse().join('')
+});
+```
+React中是通过比较当前state和前一个state来决定何时在DOM中进行重渲染以及渲染的内容，因此需要不可变（immutable）的state。
+
+Vue中的数据是可变（mutated）的，所以同样的操作看起来更加简洁。
+```
+Notethatdatapropertiesareavailableaspropertiesof
+theVueinstance
+this.message=this.message.split('').reverse().join('');
+```
+让我们来看看Vue中是如何进行状态管理的。当向state添加一个新对象的时候，Vue将遍历其中的所有属性并且转换为getter，setter方法，现在Vue的响应系统开始保持对state的跟踪了，当state中的内容发生变化的时候就会自动重新渲染DOM。令人称道的是，Vue中改变state的状态的操作不仅更加简洁，而且它的重新渲染系统也比React 的更快更有效率。Vue的响应系统还有有些坑的，例如：它不能检测属性的添加和删除和某些数组更改。这时候就要用到Vue API中的类似于React的set方法来解决。
+
+##### 如果你想要你的应用尽可能的小和快，请选择Vue
+当应用程序的状态改变时，React和Vue都将构建一个虚拟DOM并同步到真实DOM中。 两者都有各自的方法优化这个过程。
+
+Vue核心开发者提供了一个benchmark测试，可以看出Vue的渲染系统比React的更快。测试方法是10000个项目的列表渲染100次，
+
+从实用的观点来看，这种benchmark只和边缘情况有关，大部分应用程序中不会经常进行这种操作，所以这不应该被视为一个重要的比较点。但是，页面大小是与所有项目有关的，这方面Vue再次领先，它目前的版本压缩后只有25.6KB。React要实现同样的功能，你需要React DOM（37.4KB）和React with Addon库（11.4KB），共计44.8KB，几乎是Vue的两倍大。双倍的体积并不能带来双倍的功能。
+
+##### 如果你打算构建一个大型应用程序，请选择React
+像文章开头那种同时用Vue和React实现的简单应用程序，可能会让一个开发者潜意识中更加倾向于Vue。这是因为基于模板的应用程序第一眼看上去更加好理解，而且能很快跑起来。但是这些好处引入的技术债会阻碍应用扩展到更大的规模。模板容易出现很难注意到的运行时错误，同时也很难去测试，重构和分解。
+
+相比之下，Javascript模板可以组织成具有很好的分解性和干（DRY）代码的组件，干代码的可重用性和可测试性更好。Vue也有组件系统和渲染函数，但是React的渲染系统可配置性更强，还有诸如浅（shallow）渲染的特性，和React的测试工具结合起来使用，使代码的可测试性和可维护性更好。
+
+与此同时，React的immutable应用状态可能写起来不够简洁，但它在大型应用中意义非凡，因为透明度和可测试性在大型项目中变得至关重要。
+
+##### 如果你想要一个同时适用于Web端和原生APP的框架，请选择React
+React Native是一个使用Javascript构建移动端原生应用程序（iOS，Android）的库。 它与React.js相同，只是不使用Web组件，而是使用原生组件。 如果你学过React.js，很快就能上手React Native，反之亦然。
+```
+importReact,{Component}from'react';
+import{AppRegistry,Text,View}from'react-native';
+classHelloWorldextendsComponent{
+render(){
+return(
+<View>
+<Text>Hello,ReactNative!</Text>
+</View>
+);
+}
+}
+AppRegistry.registerComponent('HelloWorld',()=>HelloWorld);
+```
+它的意义在于，开发者只需要一套知识和工具就能开发Web应用和移动端原生应用。如果你想同时做Web端开发和移动端开发，React为你准备了一份大礼。阿里的Weex也是一个跨平台UI项目，目前它以Vue为灵感，使用了许多相同的语法，同时计划在未来完全集成Vue，然而集成的时间和细节还不清楚。因为Vue将HTML模板作为它设计的核心部分，并且现有特性不支持自定义渲染，因此很难看出目前的Vue.js的跨平台能力能像React和React Native一样强大。
+
+##### 如果你想要最大的生态系统，请选择React
+毫无疑问，React是目前最受欢迎的前端框架。它在NPM上每个月的下载量超过了250万次，相比之下，Vue是22.5万次。
+
+人气不仅仅是一个肤浅的数字，这意味着更多的文章，教程和更多Stack Overflow的解答，还意味有着更多的工具和插件可以在项目中使用，让开发者不再孤立无援。
+
+这两个框架都是开源的，但是React诞生于Facebook，有Facebook背书，它的开发者和Facebook都承诺会持续维护React。相比之下，Vue是独立开发者尤雨溪的作品。尤雨溪目前在全职维护Vue，也有一些公司资助Vue，但是规模和Facebook和Google没得比。不过请对Vue的团队放心，它的小规模和独立性并没有成为劣势，Vue有着固定的发布周期，甚至更令人称道的是，Github上Vue只有54个open issue，3456个closed issue，作为对比，React有多达530个open issue，3447个closed issue。
+
+如果你已经用其中一个用的很爽，就别变了
+
+**总结一下，我们发现的，Vue的优势是：**
+
+模板和渲染函数的弹性选择
+
+简单的语法和项目配置
+
+更快的渲染速度和更小的体积
+
+**React的优势是：**
+
+更适合大型应用和更好的可测试性
+
+Web端和移动端原生APP通吃
+
+更大的生态系统，更多的支持和好用的工具
+
+**然而，React和Vue都是很优秀的框架，它们之间的相似之处多过不同之处，并且大部分的优秀功能是相通的：**
+
+用虚拟DOM实现快速渲染
+
+轻量级
+
+响应式组件
+
+服务端渲染
+
+集成路由工具，打包工具，状态管理工具的难度低
+
+优秀的支持和社区

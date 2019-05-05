@@ -25,7 +25,7 @@ module.exports = {
   serviceWorker: true,
   theme: 'vue',
   themeConfig: {
-    repo: 'jasonandjay/study',
+    repo: 'https://github.com/Ljiajia/study',
 
     docsDir: 'src',
     editLinks: true,
@@ -33,7 +33,7 @@ module.exports = {
     locales: {
       '/': {
         label: '简体中文',
-        repo: 'jasonandjay/study',
+        repo: 'https://github.com/Ljiajia/study',
       
         selectText: '选择语言',
         editLinkText: '帮助我们改进内容',
@@ -47,7 +47,6 @@ module.exports = {
             text: 'js基础',
             items: [
               { text: 'js上', link: '/zh/javascript/jstop.md'},
-              { text: 'js下', link: '/zh/algorithm/Charpter5.md'},
             ],
           },
           {
@@ -84,7 +83,8 @@ module.exports = {
               { text: '小程序', link: '/zh/miniapp/' },
               { text: '悦读管理后台', link: '/zh/interface/Yuedu.md'},
               { text: 'BlackMarket', link: '/zh/interface/BlackMarket.md'},
-              { text: 'TouTiao', link: '/zh/interface/TouTiao.md'}
+              { text: 'TouTiao', link: '/zh/interface/TouTiao.md'},
+              { text: '做项目到底该用Vue和还是react？', link: '/zh/javascript/jsbottom.md'},
             ]
           },
           // {
