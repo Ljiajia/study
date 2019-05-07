@@ -1016,3 +1016,71 @@ cookie默认是临时存储的，当浏览器关闭进程的时候自动撤销
 特点：原型链实现了继承
 原型链：每个继承父函数的子函数的对象都包含一个内部属性__propt__,该属性包含一个指针，指向父元素的prototype，若父元素的原型对象的__proto__属性为再上一层函数，在此过程中就形成了原型链。
 原型：在javascript中，一共有两种类型的值，原始值和对象值，每个对象都有一个内部属性[[prototype]]，我们通常称为原型
+
+## JavaScript constructor 属性详解
+对象的constructor属性用于返回创建该对象的函数，也就是我们常说的构造函数。
+
+在javascript中，每个具有原型的对象都会自动获得constructor属性。除了arguments、Enumerator、Error、Global、Math、RegExp、Regular Expression等一些特殊对象之外，其他所有的JavaScript内置对象都具备constructor属性。例如：Array、Boolean、Date、Function、Number、Object、String等。
+
+**语法**
+
+Object.constructor
+
+**返回值**
+
+对象的constructor属性返回创建该对象的函数的引用
+
+**示例&说明**
+
+```
+// 字符串：string()
+var str='张三';
+console.log(str.constructor); // function String() { [native code] }
+console.log(str.constructor===String) // true
+
+// 数组：Array()
+var arr = [1, 2, 3];
+alert(arr.constructor); // function Array() { [native code] }
+alert(arr.constructor === Array); // true
+ 
+// 数字：Number()
+var num = 5;
+alert(num.constructor); // function Number() { [native code] }
+alert(num.constructor === Number); // true
+ 
+// 自定义对象：Person()
+function Person(){
+    this.name = "CodePlayer";
+}
+var p = new Person();
+alert(p.constructor); // function Person(){ this.name = "CodePlayer"; }
+alert(p.constructor === Person); // true
+ 
+// JSON对象：Object()
+var o = { "name" : "张三"};
+alert(o.constructor); // function Object() { [native code] }
+alert(o.constructor === Object); // true
+ 
+// 自定义函数：Function()
+function foo(){
+    alert("CodePlayer");
+}
+alert(foo.constructor); // function Function() { [native code] }
+alert(foo.constructor === Function); // true
+ 
+// 函数的原型：bar()
+function bar(){
+    alert("CodePlayer");
+}
+alert(bar.prototype.constructor); // function bar(){ alert("CodePlayer"); }
+alert(bar.prototype.constructor === bar); // true
+```
+
+### 构造函数  原型  实例化对象   之间的关系
+构造函数中存在一个属性叫  prototype  也就是原型,原型本身又是一个对象,它内部存储着  constructor 构造器,还用用户定义的需要共享的属性以及方法
+
+prototype 原型对象中的constructor属性 指向的是prototype自己所在的构造函数
+
+在实例化对象中存在着一个叫 __proto__的属性,同时它本身是一个对象,确切地说  它指向构造函数中的 prototype对象所在的内存空间,所以  ```__proto__ ==Prototype ```,
+
+但是__proto__是一个非标准化的对象,  它内部的方法 可以直接 被它的父级对象直接调用,  如上段代码中  introduce方法在 __proto__对象中, __proto__是p1的属性, 正常调用方式是  p1.__proto__.introduce(),   由于__proto__的非标准化, p1.introduce()  调用方法也是行得通的.
