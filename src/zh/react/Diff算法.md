@@ -46,7 +46,6 @@ const diffLeafs = function (beforeLeaf, afterLeaf) {
     return result;
 }
 ```
-
 **React Diff算法优化策略图**
 
 ![image](../../.vuepress/public/react115-2.png)
@@ -84,7 +83,6 @@ const diffLeafs = function (beforeLeaf, afterLeaf) {
 
 ![image](../../.vuepress/public/treeDiff.png)
 
-
 Tree DIFF是对树的每一层进行遍历，如果某组件不存在了，则会直接销毁。如图所示，左边是旧属，右边是新属，第一层是R组件，一模一样，不会发生变化；第二层进入Component DIFF，同一类型组件继续比较下去，发现A组件没有，所以直接删掉A、B、C组件；继续第三层，重新创建A、B、C组件。
 
 由此可以发现，当出现节点跨层级移动时，并不会出现想象中的移动操作，而是会进行删除，重新创建的动作，这是一种很影响React性能的操作。因此官方也不建议进行DOM节点跨层级的操作。
@@ -113,6 +111,84 @@ React是基于组件构建应用的，对于组件间的比较所采用的策略
 
 Element DIFF紧接着以上统一类型组件继续比较下去，常见类型就是列表。同一个列表由旧变新有三种行为，插入、移动和删除，它的比较策略是对于每一个列表指定key，```先将所有列表遍历一遍，确定要新增和删除的，再确定需要移动的。```如图所示，第一步将D删掉，第二步增加E，再次执行时A和B只需要移动位置即可。
 
+
+#### React中Diff算法实现的代码
+```
+_updateChildren: function(nextNestedChildrenElements, transaction, context) {
+    var prevChildren = this._renderedChildren;
+    var removedNodes = {};
+    var mountImages = [];
+    // 获取新的子元素数组
+    var nextChildren = this._reconcilerUpdateChildren(
+      prevChildren,
+      nextNestedChildrenElements,
+      mountImages,
+      removedNodes,
+      transaction,
+      context
+    );
+    if (!nextChildren && !prevChildren) {
+      return;
+    }
+    var updates = null;
+    var name;
+    var nextIndex = 0;
+    var lastIndex = 0;
+    var nextMountIndex = 0;
+    var lastPlacedNode = null;
+    for (name in nextChildren) {
+      if (!nextChildren.hasOwnProperty(name)) {
+        continue;
+      }
+      var prevChild = prevChildren && prevChildren[name];
+      var nextChild = nextChildren[name];
+      if (prevChild === nextChild) {
+        // 同一个引用，说明是使用的同一个component,所以我们需要做移动的操作
+        // 移动已有的子节点
+        // NOTICE：这里根据nextIndex, lastIndex决定是否移动
+        updates = enqueue(
+          updates,
+          this.moveChild(prevChild, lastPlacedNode, nextIndex, lastIndex)
+        );
+        // 更新lastIndex
+        lastIndex = Math.max(prevChild._mountIndex, lastIndex);
+        // 更新component的.mountIndex属性
+        prevChild._mountIndex = nextIndex;
+      } else {
+        if (prevChild) {
+          // 更新lastIndex
+          lastIndex = Math.max(prevChild._mountIndex, lastIndex);
+        }
+
+        // 添加新的子节点在指定的位置上
+        updates = enqueue(
+          updates,
+          this._mountChildAtIndex(
+            nextChild,
+            mountImages[nextMountIndex],
+            lastPlacedNode,
+            nextIndex,
+            transaction,
+            context
+          )
+        );
+        nextMountIndex++;
+      }
+      // 更新nextIndex
+      nextIndex++;
+      lastPlacedNode = ReactReconciler.getHostNode(nextChild);
+    }
+    // 移除掉不存在的旧子节点，和旧子节点和新子节点不同的旧子节点
+    for (name in removedNodes) {
+      if (removedNodes.hasOwnProperty(name)) {
+        updates = enqueue(
+          updates,
+          this._unmountChild(prevChildren[name], removedNodes[name])
+        );
+      }
+    }
+  }
+  ```
 
 ### 基于中Diff的开发建议
 

@@ -113,3 +113,5 @@ location(){  // 定位
         }
     }
 ```
+#### 12、Diff算法
+React中Diff算法的实现
